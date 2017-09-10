@@ -60,4 +60,14 @@ describe('thirty-two', function() {
     	expect(base32.encode(new Buffer("f61e1f998d69151de8334dbe753ab17ae831c13849a6aecd95d0a4e5dc25", 'hex')).toString()).toBe('6YPB7GMNNEKR32BTJW7HKOVRPLUDDQJYJGTK5TMV2CSOLXBF');
     	expect(base32.decode('6YPB7GMNNEKR32BTJW7HKOVRPLUDDQJYJGTK5TMV2CSOLXBF').toString('hex')).toBe('f61e1f998d69151de8334dbe753ab17ae831c13849a6aecd95d0a4e5dc25');
     });
+	
+    it('should encode without padding', function() {
+	var options = {excludePadding: true}
+    	expect(base32.encode('a', options).toString()).toBe('ME');
+        expect(base32.encode('be', options).toString()).toBe('MJSQ');
+        expect(base32.encode('bee', options).toString()).toBe('MJSWK');
+        expect(base32.encode('beer', options).toString()).toBe('MJSWK4Q');
+        expect(base32.encode('beers', options).toString()).toBe('MJSWK4TT');
+        expect(base32.encode('beers 1', options).toString()).toBe('MJSWK4TTEAYQ');
+    });
 });
